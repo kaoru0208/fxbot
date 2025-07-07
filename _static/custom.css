@@ -1,1 +1,2 @@
-/* This file intentionally left blank. */
+/* 例: 見出し色をブランドカラーに変更 */
+h1, h2, h3 { color: #0060df; }

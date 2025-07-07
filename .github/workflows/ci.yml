@@ -8,6 +8,7 @@ jobs:
       - uses: actions/setup-python@v5
         with:
           python-version: "3.11"
+    env:n      OANDA_TOKEN: ${{ secrets.OANDA_TOKEN }}n      OANDA_ACCOUNT_ID: ${{ secrets.OANDA_ACCOUNT_ID }}
       - run: python -m pip install -r requirements.txt
       - run: python -m pip install pytest
       - run: pytest -q

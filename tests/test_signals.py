@@ -1,4 +1,4 @@
-from validators import validate_ema_params
+from fxbot.validators import validate_ema_params
 
 
 def test_signal_dummy():

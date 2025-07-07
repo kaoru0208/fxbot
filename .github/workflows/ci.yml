@@ -12,3 +12,4 @@ jobs:
       - run: python -m pip install -r requirements.txt
       - run: python -m pip install pytest
       - run: pytest -q
+      - run: ruff check .n      - run: mypy .n      - name: Build Docker imagen        run: docker build -t fxbot:ci .

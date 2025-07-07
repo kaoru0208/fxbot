@@ -1,1 +1,3 @@
+mypy
 oandapyV20
+ruff

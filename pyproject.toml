@@ -7,3 +7,12 @@ line-length = 100
 
 [tool.pytest.ini_options]
 pythonpath = [ "." ]
+
+[project]
+name = "fxbot"
+version = "0.1.0"
+description = "FX bot back‑tester"
+authors = [{name = "taka"}]
+
+[tool.setuptools]
+packages = ["fxbot"]      # ← ★ パッケージは fxbot のみと明示

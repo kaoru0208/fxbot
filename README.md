@@ -1,3 +1,5 @@
+![Release](https://img.shields.io/github/v/tag/kaoru0208/fxbot?label=release)
+
 <!-- プロジェクト名と CI バッジ -->
 # fxbot  
 ![CI](https://github.com/kaoru0208/fxbot/actions/workflows/ci.yml/badge.svg)

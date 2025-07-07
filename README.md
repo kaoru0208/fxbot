@@ -1,3 +1,5 @@
+![pages](https://img.shields.io/github/actions/workflow/status/kaoru0208/fxbot/pages.yml?branch=master)
+
 ![docs](https://img.shields.io/badge/docs-online-brightgreen)
 
 ![Release](https://img.shields.io/github/v/tag/kaoru0208/fxbot?label=release)

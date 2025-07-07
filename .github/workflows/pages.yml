@@ -1,0 +1,33 @@
+name: docs-pages
+on:
+  push:
+    branches: [master]
+    tags: ["*"]
+
+permissions:
+  contents: read             # 全体既定
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Build Sphinx docs
+        run: |
+          pip install -r requirements.txt
+          sphinx-build -b html docs _site
+      - name: Upload pages artifact
+        uses: actions/upload-pages-artifact@v2
+        with:
+          path: _site                         # アーティファクトへ格納 :contentReference[oaicite:6]{index=6}
+
+  deploy:
+    needs: build
+    runs-on: ubuntu-latest
+    permissions:
+      pages: write
+      id-token: write                        # OIDC 署名 :contentReference[oaicite:7]{index=7}
+    environment:
+      name: github-pages
+    steps:
+      - name: Deploy to GitHub Pages
+        uses: actions/deploy-pages@v2

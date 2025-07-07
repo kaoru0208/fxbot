@@ -16,3 +16,7 @@ authors = [{name = "taka"}]
 
 [tool.setuptools]
 packages = ["fxbot"]      # ← ★ パッケージは fxbot のみと明示
+
+[tool.ruff.format]   # see official settings ⟶ docs.astral.sh :contentReference[oaicite:2]{index=2}
+docstring-code-format = true
+indent-style = "space"

@@ -1,0 +1,8 @@
+name: 💡 機能提案
+description: 新機能のアイデアを共有してください
+title: "[Feat] "
+labels: ["enhancement"]
+body:
+  - type: textarea
+    attributes:
+      label: 提案内容

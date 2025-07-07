@@ -1,0 +1,11 @@
+name: 🐛 バグ報告
+description: 不具合を報告してください
+title: "[Bug] "
+labels: ["bug"]
+body:
+  - type: textarea
+    attributes:
+      label: 概要
+  - type: textarea
+    attributes:
+      label: 再現手順

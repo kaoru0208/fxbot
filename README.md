@@ -1,3 +1,5 @@
+![docs](https://img.shields.io/badge/docs-online-brightgreen)
+
 ![Release](https://img.shields.io/github/v/tag/kaoru0208/fxbot?label=release)
 
 <!-- プロジェクト名と CI バッジ -->

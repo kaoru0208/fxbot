@@ -1,3 +1,7 @@
+![docker](https://img.shields.io/github/actions/workflow/status/kaoru0208/fxbot/docker-build.yml?branch=master)
+
+![codeql](https://img.shields.io/github/actions/workflow/status/kaoru0208/fxbot/codeql.yml?branch=master)
+
 ![pages](https://img.shields.io/github/actions/workflow/status/kaoru0208/fxbot/docs-pages.yml?branch=master)
 
 ![pages](https://img.shields.io/github/actions/workflow/status/kaoru0208/fxbot/pages.yml?branch=master)

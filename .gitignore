@@ -1,0 +1,7 @@
+# Sphinx build
+docs/_build/
+# Python キャッシュ
+__pycache__/
+*.egg-info/
+# ログ
+log/

@@ -5,3 +5,10 @@ __pycache__/
 *.egg-info/
 # ログ
 log/
+# Sphinx build
+docs/_build/
+# Python cache
+__pycache__/
+*.egg-info/
+# Logs
+log/

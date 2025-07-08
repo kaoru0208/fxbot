@@ -1,45 +1,57 @@
-name: docker-build
-
-on:
-  push:
-    tags: ['v*']           # タグを push したとき自動ビルド
-  workflow_dispatch:       # ★ 手動実行トリガ（ブランチ指定で Run workflow が使える）
-
-jobs:
-  build:
-    runs-on: ubuntu-latest
-    strategy:
-      matrix:
-        platform: ['linux/amd64', 'linux/arm64']   # マルチアーキ
-    permissions:
-      contents: read
-      packages: write
-    steps:
-      - uses: actions/checkout@v4
-
-      - uses: docker/setup-qemu-action@v3
-      - uses: docker/setup-buildx-action@v3
-
-      - uses: docker/login-action@v3
-        with:
-          registry: ghcr.io
-          username: ${{ github.actor }}
-          password: ${{ secrets.GHCR_PAT }}
-
-      - uses: docker/build-push-action@v5
-        with:
-          push: true
-          tags: ghcr.io/${{ github.repository }}:${{ github.ref_name }}
-          platforms: ${{ matrix.platform }}
-
-  sbom:
-    needs: build
-    runs-on: ubuntu-latest
-    steps:
-      - uses: actions/checkout@v4
-      - uses: CycloneDX/gh-python-generate-sbom@v1
-        with:
-          input: requirements.txt
-          output: bom.xml
-          format: json
+-name: docker-build
+-on:
+-  push:
+-    tags: ['v*']
+-jobs:
+-  build:
+-    runs-on: ubuntu-latest
+-    strategy: {matrix: {platform: ['linux/amd64','linux/arm64']}}
+-    permissions: {contents: read, packages: write}
+-    steps:
+-      - uses: actions/checkout@v4
+-      - uses: docker/setup-qemu-action@v3
+-      - uses: docker/setup-buildx-action@v3
+-      - uses: docker/login-action@v3
+-        with: {registry: ghcr.io, username: ${{ github.actor }}, password: ${{ secrets.GHCR_PAT }}}
+-      - uses: docker/build-push-action@v5
+-        with:
+-          push: true
+-          tags: ghcr.io/${{ github.repository }}:${{ github.ref_name }}
+-          platforms: ${{ matrix.platform }}
++# ------------------- ここから新しい定義 -------------------
++name: docker-build
++on:
++  push:
++    tags: ['v*']
++  workflow_dispatch:
++
++jobs:
++  build-multiarch:
++    runs-on: ubuntu-latest
++    permissions: {contents: read, packages: write}
++    steps:
++      - uses: actions/checkout@v4
++
++      - uses: docker/setup-qemu-action@v3
++      - uses: docker/setup-buildx-action@v3
++
++      - uses: docker/login-action@v3
++        with:
++          registry: ghcr.io
++          username: ${{ github.actor }}
++          password: ${{ secrets.GHCR_PAT }}
++
++      - uses: docker/build-push-action@v5
++        with:
++          push: true
++          platforms: linux/amd64,linux/arm64   # ★ 2 アーキを一括
++          tags: ghcr.io/${{ github.repository }}:${{ github.ref_name }}
++
++  sbom:
++    needs: build-multiarch
++    runs-on: ubuntu-latest
++    steps:
++      - uses: actions/checkout@v4
++      - uses: CycloneDX/gh-python-generate-sbom@v1
++        with: {input: requirements.txt, output: bom.xml, format: json}
 

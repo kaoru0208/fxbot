@@ -1,0 +1,39 @@
+diff --git a/walk_forward_phase5.py b/walk_forward_phase5.py
+--- a/walk_forward_phase5.py
++++ b/walk_forward_phase5.py
+@@
+-import argparse
++import argparse
++import warnings
++from validators import validate_ema_params
+@@
++warnings.filterwarnings(
++    "ignore",
++    category=FutureWarning,
++    message=r".*auto_adjust*",
++)
+@@ def get_args() -> argparse.Namespace:
+-    parser.add_argument("--cost", type=float, default=0.0,
+-                        help="round‑trip spread (legacy)")
++    parser.add_argument("--cost",      type=float, default=0.0,
++                        help="round‑trip spread (legacy)")
++    parser.add_argument("--spread",    type=float, default=0.0,
++                        help="bid/ask spread (one way)")
++    parser.add_argument("--slippage",  type=float, default=0.0,
++                        help="slippage (one way)")
++    parser.add_argument("--commission",type=float, default=0.0,
++                        help="broker commission (round trip)")
+@@
+-def apply_cost(ret: pd.Series) -> pd.Series:
+-    traded = ret.abs()
+-    return ret - traded * COST
++def apply_cost(ret: pd.Series, *, spread: float, slippage: float, commission: float) -> pd.Series:
++    traded = ret.abs()
++    round_trip_cost = (spread + slippage) * 2 + commission
++    return ret - traded * round_trip_cost
+@@  # Optuna trial
+-    fast  = trial.suggest_int("fast",  3,  50)
+-    slow  = trial.suggest_int("slow", 10, 200)
++    fast  = trial.suggest_int("fast",  3,  50)
++    slow  = trial.suggest_int("slow", 10, 200)
++    validate_ema_params(fast, slow)
